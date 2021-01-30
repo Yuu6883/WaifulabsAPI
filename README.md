@@ -2,7 +2,7 @@
 Minimal (<50 lines) OOP implementation to interact with [waifulabs](https://waifulabs.com/) API
 
 ## Installation
-npm i waifulabs-api
+```npm i waifulabs-api```
 
 ## Example
 Also available in `example.js`.
