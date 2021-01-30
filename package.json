@@ -4,7 +4,7 @@
   "description": "Minimal OOP implementation to interact with waifulabs API",
   "main": "index.js",
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "waifulabs": "^0.2.5"
   },
   "devDependencies": {},
   "scripts": {
