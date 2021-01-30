@@ -1,3 +1,2 @@
-node_modules/*
-
-example-step-[0-3]/*
+node_modules
+example-step-[0-3]
