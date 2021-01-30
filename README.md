@@ -1,4 +1,4 @@
-# Waifulabs-API
+# Waifulabs-API ![useless badge](https://img.shields.io/npm/v/waifulabs-api.svg?logo=npm&logoColor=fff&label=NPM+package&color=limegreen)
 Minimal (<50 lines) OOP implementation to interact with [waifulabs](https://waifulabs.com/) API
 
 ## Installation
