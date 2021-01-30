@@ -1,6 +1,6 @@
 {
   "name": "waifulabs-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Minimal OOP implementation to interact with waifulabs API",
   "main": "index.js",
   "dependencies": {

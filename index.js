@@ -7,11 +7,14 @@ const bufferer = v => ({ image: Buffer.from(v && (v.image || v.girl) || "", "bas
 module.exports = class Waifu {
     // Constructor is only called for a newly generated waifu
     constructor(data = []) {
-        this.step = 0;
-        this.curr = bufferer();
-        this.data = data.map(bufferer);
+        this.curr = bufferer().image; // 0 byte buffer just to type this
+        this.seeds = bufferer().seeds; // Invalid seed as placeholder for type as well
+        this.data = data.map(bufferer); // TYPE
         this.history = [Object.assign({}, this)]; // History always refer to the same array
     }
+
+    get step() { return this.history.length - 1; }
+    get images() { return this.data.map(d => d.image); }
 
     // Go back to previous waifu
     back() {
@@ -21,30 +24,25 @@ module.exports = class Waifu {
         return true;
     }
 
+    async refresh() {
+        this.data = (await api("generate", { step: this.step, currentGirl: this.seeds })).newGirls.map(bufferer);
+        return this;
+    }
+
     // Choice can be from -1 to 15 (-1 = keep current, 0 - 15 = choose from current data)
-    async proceed(choice = 0) {
-        if (this.step >= 3 || (!this.step && choice < 0)) return false;
+    async proceed(choice = this.step ? -1 : 0) {
+        if (this.step >= 3) return;
         this.history.push(Object.assign({}, this));
-        const seeds = choice < 0 ? this.curr.seeds : this.data[choice].seeds;
-        const payload = { step: ++this.step, size: 512, currentGirl: seeds };
-        if (choice >= 0) {
-            this.curr = bufferer(await api("generate_big", payload));
-            this.curr.seeds = seeds;
-        }
-        delete payload.size;
-        this.data = (await api("generate", payload)).newGirls.map(bufferer);
-        return true;
+        if (this.step && choice >= 0) this.curr = bufferer(await api("generate_big", 
+            { step: this.step, size: 512, currentGirl: this.seeds = this.data[choice].seeds })).image;
+        return await this.refresh();
     }
 
     /** @param {"PILLOW"|"POSTER"} product */
     async getProduct(product) {
         if (!["PILLOW", "POSTER"].includes(product) || !this.step) return null; // Invalid product or first step
-        return bufferer(await api("generate_preview", { currentGirl: this.curr.seeds, product })).image;
+        return bufferer(await api("generate_preview", { currentGirl: this.seeds, product })).image;
     }
-
     // Generate a new waifu
-    static async generate() {
-        const data = await api("generate", { step: 0 });
-        return new Waifu(data.newGirls);
-    }
+    static generate() { return new Waifu().refresh(); }
 }
