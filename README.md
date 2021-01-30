@@ -1,5 +1,5 @@
 # Waifulabs-API
-Minimal (<50 lines) OOP implementation to interact with waifulabs API
+Minimal (<50 lines) OOP implementation to interact with [waifulabs](https://waifulabs.com/) API
 
 ## Installation
 npm i waifulabs-api
