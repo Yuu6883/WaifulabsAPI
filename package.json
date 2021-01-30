@@ -1,0 +1,27 @@
+{
+  "name": "waifulabs-api",
+  "version": "1.0.0",
+  "description": "Minimal OOP implementation to interact with waifulabs API",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "example": "node example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuu6883/WaifulabsAPI.git"
+  },
+  "keywords": [
+    "waifu",
+    "waifulabs"
+  ],
+  "author": "Yuu6883",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yuu6883/WaifulabsAPI/issues"
+  },
+  "homepage": "https://github.com/Yuu6883/WaifulabsAPI#readme"
+}
